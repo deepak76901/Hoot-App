@@ -1,5 +1,5 @@
 import connectDB from "@/lib/dbConnect";
-import UserModel from "@/model/user.model";
+import UserModel, { User } from "@/model/user.model";
 import { Message } from "@/model/user.model";
 
 export async function POST(request:Request) {
@@ -7,8 +7,8 @@ export async function POST(request:Request) {
 
     const {username,content} = await request.json()
 
+    const user = await UserModel.findOne({username})
     try {
-        const user = await UserModel.findOne({username})
 
         if(!user){
             return Response.json(
